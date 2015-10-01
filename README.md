@@ -4,6 +4,8 @@ A Ruby on Rails application responding to geographical name requests for airport
 
 For instance, a request `countries?name=gr` will have the results `greece, grenada, greenland, montenegro, saint vincent and the grenadines` and their corresponding geospatial data (coordinates, sovereign country, formal name, economy level, iso_alpha2 code, iso_alpha3 code, iso_numeric3 code, continent and subregion)
 
+Data is from the project https://github.com/delight-im/FreeGeoDB
+
 
 ## Installation
 
@@ -51,7 +53,7 @@ Prefixed with your app url:
 
 ## Contributing
 
-1. Fork it ( http://github.com/[my-github-username]/volt-awesome/fork )
+1. Fork it ( http://github.com/heri/geo-db-api/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
