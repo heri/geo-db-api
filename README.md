@@ -1,8 +1,10 @@
 # Geo Db API
 
-A Ruby on Rails application responding to geographical name requests for airports, cities, countries, lakes, ports, regions and timezones with geospatial data.
+A Rails application responding to airports, cities, countries, lakes, ports, regions and timezones searches with geospatial data. Uses fuzzy string matching
 
-For instance, a request `countries?name=gr` will have the results `greece, grenada, greenland, montenegro, saint vincent and the grenadines` and their corresponding geospatial data (coordinates, sovereign country, formal name, economy level, iso_alpha2 code, iso_alpha3 code, iso_numeric3 code, continent and subregion)
+For instance, a request `countries?name=grenadines&api_key=..` will send `saint vincent and the grenadines` and its geospatial data : coordinates, sovereign country, formal name, economy level, iso_alpha2 code, iso_alpha3 code, iso_numeric3 code, continent and subregion
+
+The application uses fuzzy searches so results can be found even if there are typos
 
 Data is from the project https://github.com/delight-im/FreeGeoDB
 
@@ -23,6 +25,14 @@ Import geo data
 
     $ rake db:data:load
 
+Index database to enable fuzzy string matching
+
+    $ rake index:fuzzy
+
+This might take time!
+
+Add or delete api keys that you will give to users `config/initializers/app_initializer.rb`. If preferable, you can also delete the line to authorize requests without api keys
+
 Launch server
 
     $ rails server
@@ -32,24 +42,23 @@ Launch server
 
 Prefixed with your app url:
 
-`/airports?name=..`
+`/airports?name=..&api_key=..`
 
-`/cities?name=..`
+`/cities?name=..&api_key=..`
 
-`/countries?name=..`
+`/countries?name=..&api_key=..`
 
-`/lakes?name=..`
+`/lakes?name=..&api_key=..`
 
-`/ports?name=..`
+`/ports?name=..&api_key=..`
 
-`/regions?name=..`
+`/regions?name=.&api_key=...`
 
-`timezone?name=..`
+`timezone?name=..&api_key=..`
 
 ## TODO
 
 * Use postgresql instead of MySQL for geo requests (POSTGIS)
-* API key to throttle user requests
 
 ## Contributing
 

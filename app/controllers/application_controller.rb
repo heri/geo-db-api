@@ -3,32 +3,31 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_filter :validate_params, :authenticate_api_key
+
   # get '/airports' => 'application#airports'
   def airports
-    query = params[:name]
-    @airports = Airport.where("name LIKE ? OR icao_code = ? OR iata_code = ?", '%' + query + '%', query, query )
+    @airports = Airport.find_by_fuzzy_name(params[:name])
     if @airports
       render :json => @airports
     else
-      render :json => {:error => "Airports not found for given parameter"}.to_json, :status => 404
+      render :json => {:error => "Airports not found for given name"}.to_json, :status => 404
     end
   end
 
   #get '/cities' => 'application#cities'
   def cities
-    query = params[:name]
-    @cities = City.where("name LIKE ?", '%' + query + '%')
+    @cities = City.find_by_fuzzy_name(params[:name])
     if @cities
       render :json => @cities
     else
-      render :json => {:error => "Cities not found for given parameter"}.to_json, :status => 404
+      render :json => {:error => "Cities not found for given name"}.to_json, :status => 404
     end
   end
 
   #get '/countries' => 'application#countries'
   def countries
-    query = params[:name]
-    @countries = Country.where("formal LIKE ?", '%' + query + '%')
+    @countries = Country.find_by_fuzzy_formal(params[:name])
     if @countries
       render :json => @countries
     else
@@ -38,46 +37,54 @@ class ApplicationController < ActionController::Base
 
   # get '/lakes' => 'application#lakes'
   def lakes
-    query = params[:name]
-    @lakes = Lake.where("name LIKE ?", '%' + query + '%')
+    @lakes = Lake.find_by_fuzzy_name(params[:name])
     if @lakes
       render :json => @lakes
     else
-      render :json => {:error => "Lakes not found for given parameter"}.to_json, :status => 404
+      render :json => {:error => "Lakes not found for given name"}.to_json, :status => 404
     end
   end
 
 
   # get '/ports' => 'application#ports'
   def ports
-    query = params[:name]
-    @ports = Port.where("name LIKE ?", '%' + query + '%')
+    @ports = Port.find_by_fuzzy_name(params[:name])
     if @ports
       render :json => @ports
     else
-      render :json => {:error => "Ports not found for given parameter"}.to_json, :status => 404
+      render :json => {:error => "Ports not found for given name"}.to_json, :status => 404
     end
   end
 
   #get '/regions' => 'application#railroads'
   def regions
-    query = params[:name]
-    @regions = Airport.where("name LIKE ?", '%' + query + '%')
+    @regions = Airport.find_by_fuzzy_name(params[:name])
     if @regions
       render :json => @regions
     else
-      render :json => {:error => "Region not found for given parameter"}.to_json, :status => 404
+      render :json => {:error => "Region not found for given name"}.to_json, :status => 404
     end
   end
 
   # get '/timezones' => 'application#timezones'
   def timezone
-    query = params[:name]
-    @timezones = Timezone.where("name_alt LIKE ?", '%' + query + '%')
+    @timezones = Timezone.find_by_fuzzy_name_alt(params[:name])
     if @timezones
       render :json => @timezones
     else
       render :json => {:error => "Time zone not found for given parameter"}.to_json, :status => 404
+    end
+  end
+
+  def authenticate_api_key
+    if (KEY_GEO_API && params[:api_key] && KEY_GEO_API.exclude?(params[:api_key].to_s))
+      render :json => {:error => "not unauthorized. Please ask admin for a correct API key"}.to_json, status: :unauthorized
+    end
+  end
+
+  def validate_params
+    unless params[:name] && params[:name].size > 0
+      render :json => {:error => "You should supply a name parameter in your query"}.to_json, status: 404
     end
   end
 

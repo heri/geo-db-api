@@ -46,3 +46,5 @@ group :development do
 end
 
 gem 'yaml_db'
+
+gem 'fuzzily'
