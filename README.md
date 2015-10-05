@@ -22,7 +22,7 @@ Clone:
 
     $ git clone git@github.com:heri/geo-db-api.git
 
-    $ cd geo-db-api && bundle
+    $ cd geo-db-api && bundle install
 
 Update `config/database.yml` file to your database settings, and:
 
