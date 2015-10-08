@@ -59,7 +59,8 @@ Prefixed with your app url:
 
 ## TODO
 
-* Use postgresql instead of MySQL for geo requests (POSTGIS)
+* geo requests (POSTGIS). e.g. nearest airport with params lat, long
+* graphQL support
 * front-end with openstreetmaps
 
 ## Contributing
