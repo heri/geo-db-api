@@ -1,0 +1,3 @@
+query readPort {
+  port { name, id }
+}

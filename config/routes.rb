@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get '/regions' => 'application#regions'
   get '/timezones' => 'application#timezones'
 
+  resources :queries
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

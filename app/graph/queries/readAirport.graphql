@@ -1,0 +1,3 @@
+query readAirport {
+  airport { name, id }
+}

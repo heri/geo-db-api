@@ -1,0 +1,3 @@
+query readCity {
+  city { name, id }
+}

@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :validate_params, :authenticate_api_key
 
+  layout false
+
   # get '/airports' => 'application#airports'
   def airports
     @airports = Airport.find_by_fuzzy_name(params[:name])

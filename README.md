@@ -1,6 +1,6 @@
 # Geo Db API
 
-A Rails application responding to airports, cities, countries, lakes, ports, regions and timezones searches with geospatial data. Uses fuzzy string matching
+A Rails application responding to airports, cities, countries, lakes, ports, regions and timezones searches with geospatial data. Uses fuzzy string matching, graphQL support
 
 Response for request `/airports?name=london`:
 
@@ -57,10 +57,12 @@ Prefixed with your app url:
 
 `/timezone?name=..&api_key=..`
 
+You can also access `queries` with (limited) graphQL query
+
 ## TODO
 
 * geo requests (POSTGIS). e.g. nearest airport with params lat, long
-* graphQL support
+* better graphQL support
 * front-end with openstreetmaps
 
 ## Contributing
